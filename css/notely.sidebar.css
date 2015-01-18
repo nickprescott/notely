@@ -1,0 +1,12 @@
+.notely-sidebar-nav {
+  width: 20em;
+  height: 100%;
+  border: 3px solid #000000;
+  overflow: auto;
+  position: absolute;
+}
+
+.fa-ul li:hover {
+  color: #2d8aea;
+}
+

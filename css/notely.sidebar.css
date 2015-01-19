@@ -2,8 +2,11 @@
   width: 10%;
   height: 100%;
   border: 3px solid #000000;
-  overflow: auto;
   float: left;
+}
+
+.notely-sidebar {
+  height: inherit;
 }
 
 .fa-ul li:hover {

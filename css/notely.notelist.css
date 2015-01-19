@@ -1,0 +1,13 @@
+html body {
+  width: 100%;
+  height: 100%;
+}
+
+.notely-shell-body {
+  border: 3px solid #000000;
+  height: 100%;
+  overflow: auto;
+  width: 85%;
+  float: left;
+  margin-left: 15px;
+}

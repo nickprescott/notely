@@ -1,9 +1,9 @@
-.notely-sidebar-nav {
-  width: 20em;
+.notely-shell-sidebar {
+  width: 10%;
   height: 100%;
   border: 3px solid #000000;
   overflow: auto;
-  position: absolute;
+  float: left;
 }
 
 .fa-ul li:hover {

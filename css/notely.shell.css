@@ -1,6 +1,6 @@
 html,body {
-  width: 100%;
-  height: 100%;
+  width: 97vw;
+  height: 97vh;
 }
 
 #notely {
@@ -8,12 +8,12 @@ html,body {
 }
 
 .notely-shell-main {
-  height: 100%;
+  height: inherit;
 }
 
 .notely-shell-body {
   border: 3px solid #000000;
-  height: 100%;
+  height: inherit;
   width: 85%;
   margin-left: 15px;
   float: left;

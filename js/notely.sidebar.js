@@ -69,7 +69,7 @@ notely.sidebar = (function() {
         //Should probably check that notebookList is not empty
         var i, size, list_html;
         size = notebookList.length;
-        list_html = '<ul class="fa-ul">'
+        list_html = '<ul class="fa-ul">';
         for(i = 0; i < size ; i++) {
             list_html += '<li id='+i+'><span class="fa-li fa fa-columns"></span>'+ notebookList[i] + '</li>';
         };
@@ -91,8 +91,9 @@ notely.sidebar = (function() {
      * Throws: none
      */
     onNotebookSelect = function (event) {
-       var selected = event.target.id;
-       alert(selected);
+       var selectedNotebookId = event.target.id;
+       //send notebook id to shell 
+       $(".notely-shell-sidebar").trigger("displayTheNotes", selectedNotebookId);
        return false;
     };
     //end event handlers
@@ -143,7 +144,7 @@ notely.sidebar = (function() {
         displayNotebookList(jqueryMap.$sidebarNav, notebookList);
 
         //bind events
-        jqueryMap.$sidebarNav.bind('click', 'li',  onNotebookSelect);
+        jqueryMap.$sidebarNav.on('click', 'li',  onNotebookSelect);
 
         return true;
     };

@@ -37,7 +37,18 @@ notely.notelist = (function () {
         jqueryMap = { $container : $container };
         };
     // End DOM method /setJqueryMap/
-
+    
+    displayListOfNotes = function($target, notelist) {
+        //verify that the notelist is not empty
+        var i, size, list_html;
+        size = notelist.length;
+        list_html = '<ul class="fa-ul">';
+        if (size > 0) {
+            for (i = 0; i < size; i++) {
+                list_html += '<li id='+i+'><span class="fa-li fa fa-columns"></span>'+ notelist[i] + '</li>';
+            };
+        }
+    };
     //---------------------- END DOM METHODS ---------------------
 
     //------------------- BEGIN EVENT HANDLERS -------------------
@@ -73,8 +84,9 @@ notely.notelist = (function () {
         stateMap.$container = $container;
         $container.html(configMap.main_html);
         setJqueryMap();
+
         return true;
-        };
+    };
 
     // End public method /initModule/
     // return public methods

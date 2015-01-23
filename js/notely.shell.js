@@ -49,6 +49,9 @@ notely.shell = (function() {
     //end DOM methods
     
     //begin event handlers
+    onDisplayNotes = function(notebookId) {
+        alert(notebookId);
+    };
     //end event handlers
 
     //begin callbacks
@@ -76,6 +79,9 @@ notely.shell = (function() {
         //configure and initialize feature modules
         notely.sidebar.initModule(jqueryMap.$shellSidebar);
         notely.notelist.initModule(jqueryMap.$notelist);
+
+        //bind events
+        $(jqueryMap.$shellSidebar).on("displayTheNotes", onDisplayNotes(event.data))
     };
     //end public methods
 

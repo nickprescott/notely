@@ -60,7 +60,6 @@ notely.shell = (function() {
         //using the id and/or name, lookup the notebook and get the list of associated notes
         //pass the list of notes back to the noteList to display
         notely.notelist.displayListOfNotes(jqueryMap.$notelist, temp_map[notebookId]);
-        });
 
     };
     //end event handlers
@@ -93,6 +92,7 @@ notely.shell = (function() {
 
         //bind events
         $(jqueryMap.$shellSidebar).on("getNotes", getListOfNotes);
+    };
     //end public methods
 
     return {initModule: initModule};

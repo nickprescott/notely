@@ -28,7 +28,7 @@ notely.shell = (function() {
         },
 
         //module scope vars
-        setJqueryMap, initModule;
+        setJqueryMap, getListOfNotes, initModule;
 
     //begin util methods
 
@@ -49,8 +49,19 @@ notely.shell = (function() {
     //end DOM methods
     
     //begin event handlers
-    onDisplayNotes = function(notebookId) {
-        alert(notebookId);
+    getListOfNotes = function(event, notebookId) {
+        var temp_map = {
+                '0': ['Scotch eggs', 'vegetarian lasagna'],
+                '1': ['Bloom filters', 'Black and red trees', 'hash maps'],
+                '2': ['getting printers to work correctly']
+            };
+
+        //TODO:
+        //using the id and/or name, lookup the notebook and get the list of associated notes
+        //pass the list of notes back to the noteList to display
+        notely.notelist.displayListOfNotes(jqueryMap.$notelist, temp_map[notebookId]);
+        });
+
     };
     //end event handlers
 
@@ -81,8 +92,7 @@ notely.shell = (function() {
         notely.notelist.initModule(jqueryMap.$notelist);
 
         //bind events
-        $(jqueryMap.$shellSidebar).on("displayTheNotes", onDisplayNotes(event.data))
-    };
+        $(jqueryMap.$shellSidebar).on("getNotes", getListOfNotes);
     //end public methods
 
     return {initModule: initModule};

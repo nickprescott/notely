@@ -23,7 +23,8 @@ notely.sidebar = (function() {
         },
         jqueryMap = {},
         notebooks = {},
-        setJqueryMap, initModule;
+        setJqueryMap, getNotebookList, onNotebookSelect, displayNotebookList, 
+        initModule;
 
     //begin util methods
 
@@ -39,7 +40,7 @@ notely.sidebar = (function() {
      * Throws: none
      */
     getNotebookList = function() {
-        return ['First', 'Second', 'Third'];
+        return ['Recipes', 'Data Structures', 'Install notes'];
     };
     //end util methods
     
@@ -90,10 +91,10 @@ notely.sidebar = (function() {
      * Returns: false (to prevent bubbling/propagation)
      * Throws: none
      */
-    onNotebookSelect = function (event) {
-       var selectedNotebookId = event.target.id;
+    onNotebookSelect = function (e) {
+       var selectedNotebookId = e.target.id;
        //send notebook id to shell 
-       $(".notely-shell-sidebar").trigger("displayTheNotes", selectedNotebookId);
+       $(".notely-shell-sidebar").trigger("getNotes", selectedNotebookId);
        return false;
     };
     //end event handlers

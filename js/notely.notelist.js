@@ -23,7 +23,7 @@ notely.notelist = (function () {
         },
         stateMap = { $container : null },
         jqueryMap = {},
-        setJqueryMap, configModule, initModule;
+        setJqueryMap, configModule, displayListOfNotes, initModule;
 
     //----------------- END MODULE SCOPE VARIABLES ---------------
 
@@ -39,15 +39,18 @@ notely.notelist = (function () {
     // End DOM method /setJqueryMap/
     
     displayListOfNotes = function($target, notelist) {
-        //verify that the notelist is not empty
         var i, size, list_html;
+
         size = notelist.length;
         list_html = '<ul class="fa-ul">';
+
         if (size > 0) {
             for (i = 0; i < size; i++) {
                 list_html += '<li id='+i+'><span class="fa-li fa fa-columns"></span>'+ notelist[i] + '</li>';
             };
+            $target.html(list_html);
         }
+        return true;
     };
     //---------------------- END DOM METHODS ---------------------
 
@@ -92,7 +95,8 @@ notely.notelist = (function () {
     // return public methods
     return {
         configModule : configModule,
-        initModule : initModule
+        initModule : initModule,
+        displayListOfNotes : displayListOfNotes
     };
     //------------------- END PUBLIC METHODS ---------------------
 

@@ -43,7 +43,9 @@ notely.shell = (function() {
         jqueryMap = {
             $container: $container,
             $shellSidebar: $container.find('.notely-shell-sidebar'),
-            $notelist: $container.find('.notely-shell-note-list')
+            $shellBody: $container.find('.notely-shell-body'),
+            $notelist: $container.find('.notely-shell-note-list'),
+            $noteContainer: $container.find('.notely-shell-note-content')
         };
     };
     //end DOM methods
@@ -59,9 +61,23 @@ notely.shell = (function() {
         //TODO:
         //using the id and/or name, lookup the notebook and get the list of associated notes
         //pass the list of notes back to the noteList to display
-        notely.notelist.displayListOfNotes(jqueryMap.$notelist, temp_map[notebookId]);
+        //make sure that the notelist container is showing
+        $(jqueryMap.$notelist).show();
+        notely.notelist.displayListOfNotes(temp_map[notebookId]);
 
     };
+
+    /* When selecting a note:
+     * clear the existing container (or hide it).
+     * Get the note data from the server.
+     * Display the note container with the data.
+     */
+    getNote = function(event, noteId) {
+        var noteData = "This is a long string of text \n that is supposed to represent \n the contents of a note \n although I'm not sure how to store \n this data";
+        $(jqueryMap.$notelist).hide();
+        notely.note.displayNote(noteData);
+    };
+
     //end event handlers
 
     //begin callbacks
@@ -92,6 +108,7 @@ notely.shell = (function() {
 
         //bind events
         $(jqueryMap.$shellSidebar).on("getNotes", getListOfNotes);
+        $(jqueryMap.$shellBody).on("getNote", getNote);
     };
     //end public methods
 

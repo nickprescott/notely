@@ -16,7 +16,10 @@ notely.note = (function () {
         configMap = {
             main_html :
                 '<div class="notely-note-container">'
-                + '<div class="notely-note-toolbar"></div>'
+                + '<div class="notely-note-toolbar">'
+                    + '<div class="btn fa fa-bold fa-fw"></div>'
+                    + '<div class="btn fa fa-list-ul fa-fw"></div>'
+                + '</div>'
                 + '<div class="notely-note-content"></div>'
                 +'</div>',
             settable_map : {},

@@ -62,6 +62,7 @@ notely.shell = (function() {
         //using the id and/or name, lookup the notebook and get the list of associated notes
         //pass the list of notes back to the noteList to display
         //make sure that the notelist container is showing
+        $(jqueryMap.$noteContainer).hide();
         $(jqueryMap.$notelist).show();
         notely.notelist.displayListOfNotes(temp_map[notebookId]);
 
@@ -70,12 +71,13 @@ notely.shell = (function() {
     /* When selecting a note:
      * clear the existing container (or hide it).
      * Get the note data from the server.
-     * Display the note container with the data.
+     * initialize the note container with the note data
      */
     getNote = function(event, noteId) {
         var noteData = "This is a long string of text \n that is supposed to represent \n the contents of a note \n although I'm not sure how to store \n this data";
         $(jqueryMap.$notelist).hide();
-        notely.note.displayNote(noteData);
+        $(jqueryMap.$noteContainer).show();
+        notely.note.initModule(jqueryMap.$noteContainer, noteData);
     };
 
     //end event handlers

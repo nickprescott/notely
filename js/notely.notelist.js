@@ -50,7 +50,7 @@ notely.notelist = (function () {
 
         if (size > 0) {
             for (i = 0; i < size; i++) {
-                list_html += '<li id='+i+'><span class="fa-li fa fa-columns"></span>'+ notelist[i] + '</li>';
+                list_html += '<li id='+i+'><span class="fa-li fa fa-file-text-o"></span>'+ notelist[i] + '</li>';
             };
             $(jqueryMap.$notelist).html(list_html);
         }

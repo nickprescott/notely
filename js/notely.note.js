@@ -23,7 +23,7 @@ notely.note = (function () {
         },
         stateMap = { $container : null },
         jqueryMap = {},
-        setJqueryMap, configModule, initModule, displayNote;
+        setJqueryMap, configModule, initModule;
     //----------------- END MODULE SCOPE VARIABLES ---------------
     //------------------- BEGIN UTILITY METHODS ------------------
     //-------------------- END UTILITY METHODS -------------------
@@ -74,18 +74,18 @@ notely.note = (function () {
     // Returns : true
     // Throws : nonaccidental
     //
-    initModule = function ( $container ) {
+    initModule = function ( $container, noteData ) {
         stateMap.$container = $container;
         $container.html(configMap.main_html);
         setJqueryMap();
+        displayNote(noteData);
         return true;
         };
     // End public method /initModule/
     // return public methods
     return {
         configModule : configModule,
-        initModule : initModule,
-        displayNote : displayNote
+        initModule : initModule
     };
     //------------------- END PUBLIC METHODS ---------------------
 

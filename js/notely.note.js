@@ -17,16 +17,19 @@ notely.note = (function () {
             main_html :
                 '<div class="notely-note-container">'
                 + '<div class="notely-note-toolbar">'
-                    + '<div class="btn fa fa-bold fa-fw"></div>'
-                    + '<div class="btn fa fa-list-ul fa-fw"></div>'
+                    + '<div id="boldBtn" commandName="bold" class="btn fa fa-bold fa-fw"></div>'
+                    + '<div id="unorderedListBtn" commandName="insertunorderedlist" class="btn fa fa-list-ul fa-fw"></div>'
                 + '</div>'
-                + '<div class="notely-note-content"></div>'
+                + '<iframe class="notely-note-content"></iframe>'
                 +'</div>',
             settable_map : {},
         },
-        stateMap = { $container : null },
+        stateMap = { 
+            $container : null,
+            editor : null
+        },
         jqueryMap = {},
-        setJqueryMap, configModule, initModule;
+        setJqueryMap, configModule, initModule, displayNote;
     //----------------- END MODULE SCOPE VARIABLES ---------------
     //------------------- BEGIN UTILITY METHODS ------------------
     //-------------------- END UTILITY METHODS -------------------
@@ -37,18 +40,41 @@ notely.note = (function () {
 
         jqueryMap = { 
             $container : $container,
-            $noteContentContainer : $container.find('.notely-note-content')
+            $noteContentContainer : $container.find('.notely-note-content'),
+            $toolbar : $container.find('.notely-note-toolbar'),
+            $boldBtn : $container.find('#boldBtn'),
+            $listBtn : $container.find('#unorderedListBtn')
         };
     };
-
+    
+    /*
+     * displayNote
+     * purpose: fill the note container with the note contents
+     */
     displayNote = function (noteData) {
-        $(jqueryMap.$noteContentContainer).html(noteData);
+        jqueryMap.$noteContentContainer.find('body').text(noteData);
     };
 
     // End DOM method /setJqueryMap/
     //---------------------- END DOM METHODS ---------------------
 
     //------------------- BEGIN EVENT HANDLERS -------------------
+    
+    /*
+     * http://stackoverflow.com/questions/5281438/how-to-create-a-text-editor-in-jquery
+     *
+     */
+    applyEffect = function(event) {
+        var target = event.target;
+        var command = $(target).attr('commandName');
+        
+        var contentWindow = stateMap.editor.contentWindow;
+        $(this).toggleClass("selected");
+        contentWindow.focus();
+        contentWindow.document.execCommand(command, false, "");
+        contentWindow.focus();
+        return false;
+    };
     //-------------------- END EVENT HANDLERS --------------------
 
     //------------------- BEGIN PUBLIC METHODS -------------------
@@ -77,18 +103,28 @@ notely.note = (function () {
     // Returns : true
     // Throws : nonaccidental
     //
-    initModule = function ( $container, noteData ) {
+    initModule = function ( $container ) {
         stateMap.$container = $container;
         $container.html(configMap.main_html);
         setJqueryMap();
-        displayNote(noteData);
+
+        //initialize the editor
+        stateMap.editor = $(jqueryMap.$noteContentContainer).get(0);
+        stateMap.editor.contentWindow.document.designMode="on";
+        //displayNote(noteData);
+
+        //bind events
+        $(jqueryMap.$boldBtn).on("click", applyEffect);
+        $(jqueryMap.$listBtn).on("click", applyEffect);
+            
         return true;
         };
     // End public method /initModule/
     // return public methods
     return {
         configModule : configModule,
-        initModule : initModule
+        initModule : initModule,
+        displayNote : displayNote
     };
     //------------------- END PUBLIC METHODS ---------------------
 

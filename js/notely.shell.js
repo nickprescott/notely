@@ -77,7 +77,7 @@ notely.shell = (function() {
         var noteData = "This is a long string of text \n that is supposed to represent \n the contents of a note \n although I'm not sure how to store \n this data";
         $(jqueryMap.$notelist).hide();
         $(jqueryMap.$noteContainer).show();
-        notely.note.initModule(jqueryMap.$noteContainer, noteData);
+        notely.note.displayNote(noteData);
     };
 
     //end event handlers
@@ -107,7 +107,10 @@ notely.shell = (function() {
         //configure and initialize feature modules
         notely.sidebar.initModule(jqueryMap.$shellSidebar);
         notely.notelist.initModule(jqueryMap.$notelist);
-
+        //make sure that the note area does not show yet
+        $(jqueryMap.$noteContainer).hide();
+        notely.note.initModule(jqueryMap.$noteContainer);
+        
         //bind events
         $(jqueryMap.$shellSidebar).on("getNotes", getListOfNotes);
         $(jqueryMap.$shellBody).on("getNote", getNote);

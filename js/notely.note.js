@@ -19,6 +19,7 @@ notely.note = (function () {
                 + '<div class="notely-note-toolbar">'
                     + '<div id="boldBtn" commandName="bold" class="btn fa fa-bold fa-fw"></div>'
                     + '<div id="unorderedListBtn" commandName="insertunorderedlist" class="btn fa fa-list-ul fa-fw"></div>'
+                    + '<div id="strikeThroughBtn" commandName="strikethrough" class="btn fa fa-strikethrough fa-fw"></div>'
                 + '</div>'
                 + '<iframe class="notely-note-content"></iframe>'
                 +'</div>',
@@ -43,7 +44,8 @@ notely.note = (function () {
             $noteContentContainer : $container.find('.notely-note-content'),
             $toolbar : $container.find('.notely-note-toolbar'),
             $boldBtn : $container.find('#boldBtn'),
-            $listBtn : $container.find('#unorderedListBtn')
+            $listBtn : $container.find('#unorderedListBtn'),
+            $stikeThroughBtn : $container.find('#strikeThroughBtn')
         };
     };
     
@@ -116,6 +118,7 @@ notely.note = (function () {
         //bind events
         $(jqueryMap.$boldBtn).on("click", applyEffect);
         $(jqueryMap.$listBtn).on("click", applyEffect);
+        $(jqueryMap.$stikeThroughBtn).on("click", applyEffect);
             
         return true;
         };

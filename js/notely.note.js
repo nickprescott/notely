@@ -69,8 +69,8 @@ notely.note = (function () {
     applyEffect = function(event) {
         var target = event.target;
         var command = $(target).attr('commandName');
-        
         var contentWindow = stateMap.editor.contentWindow;
+
         $(this).toggleClass("selected");
         contentWindow.focus();
         contentWindow.document.execCommand(command, false, "");
@@ -112,6 +112,9 @@ notely.note = (function () {
 
         //initialize the editor
         stateMap.editor = $(jqueryMap.$noteContentContainer).get(0);
+        //opening and closing the editor is a workaround for an issue in Firefox
+        stateMap.editor.contentWindow.document.open();
+        stateMap.editor.contentWindow.document.close();
         stateMap.editor.contentWindow.document.designMode="on";
         //displayNote(noteData);
 

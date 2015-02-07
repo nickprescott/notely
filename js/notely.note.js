@@ -54,7 +54,7 @@ notely.note = (function () {
      * purpose: fill the note container with the note contents
      */
     displayNote = function (noteData) {
-        jqueryMap.$noteContentContainer.find('body').text(noteData);
+        jqueryMap.$noteContentContainer.contents().find('body').html(noteData);
     };
 
     // End DOM method /setJqueryMap/
@@ -116,7 +116,6 @@ notely.note = (function () {
         stateMap.editor.contentWindow.document.open();
         stateMap.editor.contentWindow.document.close();
         stateMap.editor.contentWindow.document.designMode="on";
-        //displayNote(noteData);
 
         //bind events
         $(jqueryMap.$boldBtn).on("click", applyEffect);

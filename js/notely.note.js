@@ -16,12 +16,11 @@ notely.note = (function () {
         configMap = {
             main_html :
                 '<div class="notely-note-container">'
-                + '<div class="notely-note-toolbar">'
-                    + '<div id="boldBtn" commandName="bold" class="btn fa fa-bold fa-fw"></div>'
-                    + '<div id="unorderedListBtn" commandName="insertunorderedlist" class="btn fa fa-list-ul fa-fw"></div>'
-                    + '<div id="strikeThroughBtn" commandName="strikethrough" class="btn fa fa-strikethrough fa-fw"></div>'
+                + '<div id="toolbar">'
+                    + '<div data-wysihtml5-command="bold" class="btn fa fa-bold fa-fw"></div>'
+                    + '<div data-wysihtml5-command="insertUnorderedList" class="btn fa fa-list-ul fa-fw"></div>'
                 + '</div>'
-                + '<iframe class="notely-note-content"></iframe>'
+                + '<div id="editor" data-placeholder="Add a note."></div>'
                 +'</div>',
             settable_map : {},
         },
@@ -41,11 +40,8 @@ notely.note = (function () {
 
         jqueryMap = { 
             $container : $container,
-            $noteContentContainer : $container.find('.notely-note-content'),
-            $toolbar : $container.find('.notely-note-toolbar'),
-            $boldBtn : $container.find('#boldBtn'),
-            $listBtn : $container.find('#unorderedListBtn'),
-            $stikeThroughBtn : $container.find('#strikeThroughBtn')
+            $noteContentContainer : $container.find('#editor'),
+            $toolbar : $container.find('#toolbar'),
         };
     };
     
@@ -54,29 +50,14 @@ notely.note = (function () {
      * purpose: fill the note container with the note contents
      */
     displayNote = function (noteData) {
-        jqueryMap.$noteContentContainer.contents().find('body').html(noteData);
+        jqueryMap.$noteContentContainer.text(noteData);
     };
 
     // End DOM method /setJqueryMap/
     //---------------------- END DOM METHODS ---------------------
 
     //------------------- BEGIN EVENT HANDLERS -------------------
-    
-    /*
-     * http://stackoverflow.com/questions/5281438/how-to-create-a-text-editor-in-jquery
-     *
-     */
-    applyEffect = function(event) {
-        var target = event.target;
-        var command = $(target).attr('commandName');
-        var contentWindow = stateMap.editor.contentWindow;
 
-        $(this).toggleClass("selected");
-        contentWindow.focus();
-        contentWindow.document.execCommand(command, false, "");
-        contentWindow.focus();
-        return false;
-    };
     //-------------------- END EVENT HANDLERS --------------------
 
     //------------------- BEGIN PUBLIC METHODS -------------------
@@ -106,24 +87,20 @@ notely.note = (function () {
     // Throws : nonaccidental
     //
     initModule = function ( $container ) {
+        var editor;
         stateMap.$container = $container;
         $container.html(configMap.main_html);
         setJqueryMap();
 
         //initialize the editor
-        stateMap.editor = $(jqueryMap.$noteContentContainer).get(0);
-        //opening and closing the editor is a workaround for an issue in Firefox
-        stateMap.editor.contentWindow.document.open();
-        stateMap.editor.contentWindow.document.close();
-        stateMap.editor.contentWindow.document.designMode="on";
+        editor = new wysihtml5.Editor('editor', {
+            toolbar: 'toolbar',
+            parserRules: wysihtml5ParserRules
+        });
 
-        //bind events
-        $(jqueryMap.$boldBtn).on("click", applyEffect);
-        $(jqueryMap.$listBtn).on("click", applyEffect);
-        $(jqueryMap.$stikeThroughBtn).on("click", applyEffect);
-            
         return true;
         };
+
     // End public method /initModule/
     // return public methods
     return {

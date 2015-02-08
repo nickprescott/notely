@@ -74,7 +74,7 @@ notely.shell = (function() {
      * initialize the note container with the note data
      */
     getNote = function(event, noteId) {
-        var noteData = "This is a long string of text \n that is supposed to represent \n the contents of a note \n although I'm not sure how to store \n this data";
+        var noteData = "This is a long string of text <br> that is supposed to represent <br> the contents of a note <br> although I'm not sure how to store <br> this data";
         $(jqueryMap.$notelist).hide();
         $(jqueryMap.$noteContainer).show();
         notely.note.displayNote(noteData);
